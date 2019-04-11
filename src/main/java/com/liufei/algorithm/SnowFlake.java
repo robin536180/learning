@@ -89,18 +89,25 @@ public class SnowFlake {
   }
 
   private long getNewstmp() {
-    return System.currentTimeMillis();
+    return System.nanoTime();
   }
 
-  public static void main(String[] args) {
-    SnowFlake snowFlake = new SnowFlake(1, 1);
+  public static void main(String[] args) throws InterruptedException {
+    SnowFlake snowFlake1 = new SnowFlake(1, 1);
+    SnowFlake snowFlake2 = new SnowFlake(1, 2);
 
     long start = System.currentTimeMillis();
-    for (int i = 0; i < 1000000; i++) {
-      System.out.println(snowFlake.nextId());
+    for (int i = 0; i < 10; i++) {
+      //Thread.sleep(1);
+      System.out.println("1:"+snowFlake1.nextId());
+      Thread.sleep(1);
+      System.out.println("2:"+snowFlake2.nextId());
     }
 
     System.out.println(System.currentTimeMillis() - start);
+
+    System.out.println(System.currentTimeMillis());
+    System.out.println(System.nanoTime());
 
 
   }
